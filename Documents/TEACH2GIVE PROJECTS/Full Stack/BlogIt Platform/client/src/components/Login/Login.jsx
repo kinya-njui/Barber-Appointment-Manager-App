@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 function Login() {
   return (
     <div>
-      <div className="tracks-form-container">
+      <div className="blogs-form-container">
         <h3>Welcome back to BlogIt!</h3>
-        <form className="tracks-form">
+        <form className="blogs-form">
           <div className="form-group">
             <label htmlFor="username" className="form-group-label">
               username or email

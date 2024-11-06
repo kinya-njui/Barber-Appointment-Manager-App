@@ -1,4 +1,4 @@
-.tracks-form-container {
+.blogs-form-container {
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
@@ -15,7 +15,7 @@ h3 {
   color: #333;
 }
 
-.tracks-form {
+.blogs-form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;

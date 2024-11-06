@@ -70,10 +70,10 @@ function Signup() {
     mutate(newUser);
   }
   return (
-    <div className="tracks-form-container">
+    <div className="blogs-form-container">
       <h3>Register BlogIt Platform</h3>
       <Toaster richColors position="top-center" />
-      <form className="tracks-form">
+      <form className="blogs-form">
         <div className="form-group-wrapper">
           <div className="form-group">
             <label htmlFor="first-name" className="form-group-label">
