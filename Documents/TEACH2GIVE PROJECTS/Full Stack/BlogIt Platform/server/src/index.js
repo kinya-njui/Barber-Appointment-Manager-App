@@ -1,10 +1,12 @@
 import express from "express";
 import cors from "cors";
-import validateUserInformation from "./middleware/validateUserInformation.js";
-
+import cookieParser from "cookie-parser";
 import signupUser from "./controllers/Auth/signupUser.js";
 import loginUser from "./controllers/Auth/loginUsers.js";
-
+import validateUserInformation from "./middleware/validateUserInformation.js";
+import createBlog from "./controllers/blogs.controllers.js";
+import verifyToken from "./middleware/verifyToken.js";
+import ValidateBlog from "./middleware/validateBlog.js";
 const app = express();
 
 //Register middleware
@@ -16,9 +18,11 @@ app.use(
     credentials: true,
   }),
 );
+app.use(cookieParser());
 //Routes
 app.post("/signup", validateUserInformation, signupUser);
 app.post("/auth/login", loginUser);
+app.post("/blog", verifyToken, ValidateBlog, createBlog);
 
 //server
 app.listen(3000, () => {
