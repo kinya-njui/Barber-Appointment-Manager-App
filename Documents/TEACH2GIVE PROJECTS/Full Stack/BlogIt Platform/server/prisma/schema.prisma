@@ -30,8 +30,11 @@ model Blog {
   title      String
   synopsis   String
   body       String
+  featuredImage String
   createdAt DateTime @default(now())
   updatedAt  DateTime @updatedAt
   writer     String
   user       User     @relation(fields: [writer], references: [id])
+
+  @@map("blogs")
 }

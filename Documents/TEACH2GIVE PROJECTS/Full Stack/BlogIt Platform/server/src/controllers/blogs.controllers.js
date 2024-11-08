@@ -1,14 +1,17 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
-export async function createBlog(req, res) {
+// create blog
+async function createBlog(req, res) {
   try {
-    const { title, synopsis, body } = req.body;
+    const { title, synopsis, body, featuredImage } = req.body;
     const userId = req.userId;
+    console.log(userId);
     const newBlog = await prisma.blog.create({
       data: {
         title,
         synopsis,
         body,
+        featuredImage,
         writer: userId,
       },
     });
@@ -17,4 +20,26 @@ export async function createBlog(req, res) {
     res.status(500).json({ message: error.message });
   }
 }
-export default createBlog;
+
+// fetching all
+async function getAllBlogs(_req, res) {
+  try {
+    const allBlogs = await prisma.blog.findMany({
+      include: {
+        user: true,
+      },
+    });
+
+    if (!allBlogs) {
+      res.status(404).json({ message: "No blogs found" });
+      return;
+    }
+
+    res.status(200).json(allBlogs);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+    return;
+  }
+}
+
+export { createBlog, getAllBlogs };
