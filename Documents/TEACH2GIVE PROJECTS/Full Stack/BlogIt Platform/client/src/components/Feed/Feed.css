@@ -1,0 +1,29 @@
+.feed-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    padding: 16px;
+    border-radius: 8px;
+    max-width: 400px;
+    margin: 10px auto;
+  }
+  
+  .writer-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .author-info {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+  
+  .cta-buttons button {
+    padding: 5px 10px;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+  

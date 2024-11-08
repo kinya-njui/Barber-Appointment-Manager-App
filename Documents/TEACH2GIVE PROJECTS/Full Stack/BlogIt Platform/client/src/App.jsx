@@ -10,6 +10,7 @@ import LandingPage from "./Pages/LandingPage/LandingPage";
 import AllBlogsPage from "./Pages/AllBlogsPage/AllBlogsPage";
 import Writing from "./components/Write/Write";
 import FullBlogPage from "./Pages/FullBlogPage/FullBlogPage";
+import FeedPage from "./Pages/FeedPage/FeedPage";
 
 const client = new QueryClient();
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/full-blog/:id" element={<FullBlogPage />} />
+          <Route path="/writer-feed" element={<FeedPage />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
