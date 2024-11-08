@@ -18,7 +18,7 @@ function NavbarHeader() {
             <Link to="/signup">signup</Link>
           </li>
           <li>
-            <Link to="/Blogs">Blogs</Link>
+            <Link to="/blogs">Blogs</Link>
           </li>
         </ol>
       </nav>
