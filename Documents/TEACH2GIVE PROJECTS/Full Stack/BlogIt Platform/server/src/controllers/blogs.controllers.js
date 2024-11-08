@@ -40,7 +40,7 @@ async function getAllBlogs(_req, res) {
     res.status(500).json({ message: error.message });
     return;
   }
-};
+}
 
 //fetching single blog using id
 async function getSingleBlog(req, res) {
@@ -61,4 +61,25 @@ async function getSingleBlog(req, res) {
   }
 }
 
-export { createBlog, getAllBlogs, getSingleBlog };
+//fetching all blogs of a  single writer
+async function getWriterBlogs(req, res) {
+  const writerId = req.userId;
+
+  try {
+    const writerBlogs = await prisma.blog.findMany({
+      where: {
+        writer: writerId,
+      },
+      include: {
+        user: true,
+      },
+    });
+
+    res.status(200).json(writerBlogs);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+    return;
+  }
+}
+
+export { createBlog, getAllBlogs, getSingleBlog, getWriterBlogs };

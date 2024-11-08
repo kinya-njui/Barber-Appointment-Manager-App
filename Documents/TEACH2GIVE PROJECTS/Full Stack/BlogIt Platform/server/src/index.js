@@ -4,7 +4,12 @@ import cookieParser from "cookie-parser";
 import signupUser from "./controllers/Auth/signupUser.js";
 import loginUser from "./controllers/Auth/loginUsers.js";
 import validateUserInformation from "./middleware/validateUserInformation.js";
-import { createBlog, getAllBlogs, getSingleBlog } from "./controllers/blogs.controllers.js";
+import {
+  createBlog,
+  getAllBlogs,
+  getSingleBlog,
+  getWriterBlogs,
+} from "./controllers/blogs.controllers.js";
 import verifyToken from "./middleware/verifyToken.js";
 import ValidateBlog from "./middleware/validateBlog.js";
 const app = express();
@@ -23,6 +28,9 @@ app.use(cookieParser());
 app.post("/signup", validateUserInformation, signupUser);
 app.post("/auth/login", loginUser);
 app.post("/blog", verifyToken, ValidateBlog, createBlog);
+
+// route for getting all blogs from a writer
+app.get("/blogs/writer", verifyToken, getWriterBlogs);
 app.get("/blog/:id", verifyToken, getSingleBlog);
 
 // route for getting all blog posts
