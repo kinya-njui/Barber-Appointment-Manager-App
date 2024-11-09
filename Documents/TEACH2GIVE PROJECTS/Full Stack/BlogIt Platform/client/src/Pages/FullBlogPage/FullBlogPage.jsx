@@ -1,12 +1,12 @@
-import React from 'react'
-import FullBlog from '../../components/FullBlog/FullBlog'
+import React from "react";
+import FullBlog from "../../components/FullBlog/FullBlog";
 
 function FullBlogPage() {
   return (
     <div>
-        <FullBlog />
+      <FullBlog />
     </div>
-  )
+  );
 }
 
-export default FullBlogPage
+export default FullBlogPage;
