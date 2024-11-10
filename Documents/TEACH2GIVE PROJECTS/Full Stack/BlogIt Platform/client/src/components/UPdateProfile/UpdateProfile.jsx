@@ -149,6 +149,7 @@ function UpdateProfile() {
           </button>
         </form>
       </div>
+      // Password update form
       <div className="password-form-container">
         <h3>Update Password</h3>
         <form onSubmit={handlePasswordUpdate} className="password-form">
