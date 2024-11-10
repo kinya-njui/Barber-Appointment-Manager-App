@@ -20,9 +20,6 @@ function NavbarHeader() {
           <li>
             <Link to="/blogs">Blogs</Link>
           </li>
-          <li>
-            <Link to="/update-profile">profile</Link>
-          </li>
         </ol>
       </nav>
     </div>

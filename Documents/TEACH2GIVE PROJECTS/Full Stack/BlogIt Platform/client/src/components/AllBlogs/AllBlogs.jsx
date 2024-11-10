@@ -39,7 +39,10 @@ function BlogCard({
         <div className="blog-content">
           <h2 className="blog-title">{blogTitle}</h2>
           <p className="blog-excerpt">{blogSynopsis}</p>
-          <p className="blog-body">{blogBody}</p>
+          <p
+            className="blog-body"
+            dangerouslySetInnerHTML={{ __html: blogBody }}
+          ></p>
           <button
             className="read-more-button"
             onClick={handleRedirectToFullBlog}

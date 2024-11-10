@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./UpdateProfile.css";
 import { Toaster, toast } from "sonner";
-import { useMutation, useQuery } from "react-query";
+import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import apiUrl from "../../utils/apiUrl";
 import useDetailStore from "../../utils/useDetailStore";
@@ -11,24 +11,25 @@ function UpdateProfile() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
+  const [previousPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const navigate = useNavigate();
 
   const user = useDetailStore((state) => state.user);
-  const setUser = useDetailStore((state) => state.setUser);
 
   // Fetch user profile data
   useEffect(() => {
-    if (!user) {
-      return;
+    if (user) {
+      setFirstName(user.firstName);
+      setLastName(user.lastName);
+      setEmail(user.email);
+      setUsername(user.username);
     }
-
-    setFirstName(user.firstName);
-    setLastName(user.lastName);
-    setEmail(user.email);
-    setUsername(user.username);
   }, [user]);
-  // Update user profile
-  const { mutate, isLoading: isUpdating } = useMutation({
+
+  // Update user profile mutation
+  const { mutate: updateProfile, isLoading: isUpdating } = useMutation({
     mutationFn: async (updatedProfile) => {
       const response = await fetch(`${apiUrl}/profile/update`, {
         method: "PUT",
@@ -50,10 +51,49 @@ function UpdateProfile() {
     },
   });
 
+  // Update user password mutation
+  const { mutate, isLoading: isUpdatingPassword } = useMutation({
+    mutationFn: async (passwordData) => {
+      const response = await fetch(`${apiUrl}/profile/update-password`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(passwordData),
+        credentials: "include",
+      });
+      console.log("response-pass", response);
+      if (response.ok === false) {
+        const error = await response.json();
+        throw new Error(error.message);
+      }
+      const data = await response.json();
+      console.log("data-pass", data);
+      return data;
+    },
+    onSuccess: () => {
+      toast.success("Password updated successfully!", { duration: 3000 });
+    },
+    onError: (error) => {
+      toast.error(error.message, { duration: 3000 });
+    },
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const updatedProfile = { firstName, lastName, email, username };
-    mutate(updatedProfile);
+    updateProfile(updatedProfile);
+  };
+
+  const handlePasswordUpdate = (e) => {
+    e.preventDefault();
+    if (newPassword !== confirmNewPassword) {
+      toast.error("New password and confirm password do not match.", {
+        duration: 3000,
+      });
+      return;
+    }
+    const passwordData = { previousPassword, newPassword };
+    console.log(passwordData);
+    mutate(passwordData);
   };
 
   if (isUpdating) return <p>Loading profile data...</p>;
@@ -109,7 +149,48 @@ function UpdateProfile() {
           </button>
         </form>
       </div>
-      <div></div>
+      <div className="password-form-container">
+        <h3>Update Password</h3>
+        <form onSubmit={handlePasswordUpdate} className="password-form">
+          <div className="form-group">
+            <label htmlFor="current-password">Current Password</label>
+            <input
+              type="password"
+              id="current-password"
+              value={previousPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              className="form-group-input"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="new-password">New Password</label>
+            <input
+              type="password"
+              id="new-password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              className="form-group-input"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="confirm-new-password">Confirm New Password</label>
+            <input
+              type="password"
+              id="confirm-new-password"
+              value={confirmNewPassword}
+              onChange={(e) => setConfirmNewPassword(e.target.value)}
+              className="form-group-input"
+            />
+          </div>
+          <button
+            type="submit"
+            className="submit-button"
+            disabled={isUpdatingPassword}
+          >
+            {isUpdatingPassword ? "Updating Password..." : "Update Password"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

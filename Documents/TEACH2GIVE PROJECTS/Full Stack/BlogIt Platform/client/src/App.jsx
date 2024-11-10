@@ -3,7 +3,7 @@ import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import "./App.css";
-import Header from "./components/Header/Header";
+
 import SignupPage from "./Pages/SignupPage/SignupPage";
 import LoginPage from "./Pages/LoginPage/LoginPage";
 import LandingPage from "./Pages/LandingPage/LandingPage";
@@ -13,14 +13,19 @@ import FullBlogPage from "./Pages/FullBlogPage/FullBlogPage";
 import FeedPage from "./Pages/FeedPage/FeedPage";
 import UpdateBlogPage from "./Pages/UpdateBlogPage/UpdateBlogPage";
 import UpdateProfilePage from "./Pages/UpdateProfilePage/UpdateProfilePage";
+import Head from "./components/Head/Head";
+import Header from "./components/Header/Header";
+
+import useDetailStore from "./utils/useDetailStore";
 
 const client = new QueryClient();
 
 function App() {
+  const user = useDetailStore((state) => state.user);
   return (
     <QueryClientProvider client={client}>
       <BrowserRouter>
-        <Header />
+        {user ? <Head /> : <Header />}
         <Routes>
           <Route path="/write" element={<Writing />} />
           <Route path="/" element={<LandingPage />} />
