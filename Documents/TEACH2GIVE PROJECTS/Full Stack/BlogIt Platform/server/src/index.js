@@ -9,7 +9,13 @@ import {
   getAllBlogs,
   getSingleBlog,
   getWriterBlogs,
+  deleteBlogById,
+  updateBlog,
 } from "./controllers/blogs.controllers.js";
+import {
+  updateProfile,
+  updateUserProfile,
+} from "./controllers/Auth/updateProfile.js"; //updateProfile from "./controllers/Auth/updateProfile.js";
 import verifyToken from "./middleware/verifyToken.js";
 import ValidateBlog from "./middleware/validateBlog.js";
 const app = express();
@@ -19,7 +25,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
   }),
 );
@@ -35,6 +41,16 @@ app.get("/blog/:id", verifyToken, getSingleBlog);
 
 // route for getting all blog posts
 app.get("/all-blogs", verifyToken, getAllBlogs);
+
+app.delete("/blog/:id", verifyToken, deleteBlogById);
+
+app.put("/blog/update/:id", verifyToken, updateBlog);
+
+//route for update profile
+app.put("/profile/update", verifyToken, updateProfile);
+
+app.patch("/profile/update-password", verifyToken, updateUserProfile);
+
 //server
 app.listen(3000, () => {
   console.log("Server is running on port 3000");

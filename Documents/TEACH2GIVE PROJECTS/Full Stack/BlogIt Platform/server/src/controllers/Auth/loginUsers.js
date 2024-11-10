@@ -40,12 +40,9 @@ const loginUser = async (req, res) => {
     //if they match create a token, save the Id there
     const token = jwt.sign(user.id, process.env.JWT_SECRET);
     //send the token to the client as a cookie
-    res
-      .status(200)
-      .cookie("authToken", token, { httpOnly: true })
-      .json({ user });
+    res.status(200).cookie("authToken", token, { httpOnly: true }).json(user);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "something went wrong! please try again" });
   }
 };
 export default loginUser;
