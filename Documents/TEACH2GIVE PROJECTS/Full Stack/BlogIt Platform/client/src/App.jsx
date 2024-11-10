@@ -12,6 +12,7 @@ import Writing from "./components/Write/Write";
 import FullBlogPage from "./Pages/FullBlogPage/FullBlogPage";
 import FeedPage from "./Pages/FeedPage/FeedPage";
 import UpdateBlogPage from "./Pages/UpdateBlogPage/UpdateBlogPage";
+import UpdateProfilePage from "./Pages/UpdateProfilePage/UpdateProfilePage";
 
 const client = new QueryClient();
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/full-blog/:id" element={<FullBlogPage />} />
           <Route path="/writer-feed" element={<FeedPage />} />
           <Route path="/update-blog/:id" element={<UpdateBlogPage />} />
+          <Route path="/update-profile" element={<UpdateProfilePage />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>

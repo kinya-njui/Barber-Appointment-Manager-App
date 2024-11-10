@@ -14,7 +14,7 @@ function Head() {
             <Link to="/">home</Link>
           </li>
           <li>
-            <Link to="">write</Link>
+            <Link to="/write">write</Link>
           </li>
           <li>
             <Link to="/blogs">Blogs</Link>

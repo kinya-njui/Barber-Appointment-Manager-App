@@ -6,8 +6,10 @@ import { useState } from "react";
 import { useMutation } from "react-query";
 import apiUrl from "../../utils/apiUrl";
 import { useNavigate } from "react-router-dom";
+import useDetailStore from "../../utils/useDetailStore";
 
 function Login() {
+  const setUser = useDetailStore((state) => state.setUser);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -32,8 +34,8 @@ function Login() {
       return data;
     },
 
-    onSuccess: () => {
-      // setUser(user);
+    onSuccess: (user) => {
+      setUser(user);
       navigate("/blogs");
       toast.success("logged in success", {
         duration: 2000,
@@ -90,7 +92,7 @@ function Login() {
               password
             </label>
             <input
-              type="text"
+              type="password"
               id="password"
               name="password"
               className="form-group-input"

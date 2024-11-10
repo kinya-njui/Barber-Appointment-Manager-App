@@ -1,10 +1,17 @@
 import React from "react";
 import "./Landing.css";
+import { Link } from "react-router-dom";
 
 function Landing() {
   return (
     <section className="hero-section">
       <h2 className="hero-title">Unleash Your Voice, Inspire the World</h2>
+      <Link to="/login" className="login-link">
+        Start Writing
+      </Link>
+      <Link to="/blogs" className="blogs-link">
+        Explore Blogs
+      </Link>
       <p className="hero-title-text">
         BlogIt is more than a platform—it's a space where every voice finds its
         place. Share your thoughts, inspire minds, and connect with readers
